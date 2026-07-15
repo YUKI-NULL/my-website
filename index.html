@@ -490,7 +490,7 @@
             const toggle = document.getElementById('themeToggle');
 
             // ── Restore saved preference, or default to light ──
-            const saved = localStorage.getItem('rilke-theme');
+            const saved = localStorage.getItem('rilke-index-theme');
             if (saved === 'dark') {
                 html.setAttribute('data-theme', 'dark');
             } else {
@@ -502,7 +502,7 @@
                 const current = html.getAttribute('data-theme');
                 const next = current === 'light' ? 'dark' : 'light';
                 html.setAttribute('data-theme', next);
-                localStorage.setItem('rilke-theme', next);
+                localStorage.setItem('rilke-index-theme', next);
             });
         })();
     </script>
