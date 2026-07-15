@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="dark">
+<html lang="de" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -489,12 +489,12 @@
             const html = document.documentElement;
             const toggle = document.getElementById('themeToggle');
 
-            // ── Restore saved preference, or default to dark ──
+            // ── Restore saved preference, or default to light ──
             const saved = localStorage.getItem('rilke-theme');
-            if (saved === 'light') {
-                html.setAttribute('data-theme', 'light');
-            } else {
+            if (saved === 'dark') {
                 html.setAttribute('data-theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
             }
 
             // ── Toggle on click ──
