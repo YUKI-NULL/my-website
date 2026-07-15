@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainer Maria Rilke — Achter Brief an einen jungen Dichter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        /* ── Theme: Dark (default) ── */
+        :root,
+        [data-theme="dark"] {
+            --bg: #1a1a1c;
+            --surface: #222226;
+            --text: #c4beb2;
+            --text-muted: #8a8378;
+            --accent: #b8945c;
+            --accent-subtle: rgba(184, 148, 92, 0.15);
+            --accent-subtle-2: rgba(184, 148, 92, 0.03);
+            --divider: rgba(196, 190, 178, 0.08);
+            --toggle-bg: rgba(255, 255, 255, 0.04);
+            --toggle-border: rgba(255, 255, 255, 0.06);
+            --glow-1: rgba(184, 148, 92, 0.04);
+            --glow-2: rgba(184, 148, 92, 0.03);
+        }
+
+        /* ── Theme: Light ── */
+        [data-theme="light"] {
+            --bg: #f6f1e6;
+            --surface: #ede7d7;
+            --text: #3e3830;
+            --text-muted: #8c8276;
+            --accent: #9b7644;
+            --accent-subtle: rgba(155, 118, 68, 0.12);
+            --accent-subtle-2: rgba(155, 118, 68, 0.04);
+            --divider: rgba(62, 56, 48, 0.1);
+            --toggle-bg: rgba(0, 0, 0, 0.03);
+            --toggle-border: rgba(0, 0, 0, 0.06);
+            --glow-1: rgba(155, 118, 68, 0.06);
+            --glow-2: rgba(155, 118, 68, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            font-weight: 300;
+            font-size: 18px;
+            line-height: 1.85;
+            letter-spacing: 0.01em;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 4rem 1.5rem;
+            background-image:
+                radial-gradient(ellipse at 50% 0%, var(--glow-1) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 100%, var(--glow-2) 0%, transparent 50%);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* ── Ornamental top mark ── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 64px;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 680px;
+            width: 100%;
+            padding: 3rem 0 5rem;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--divider);
+            position: relative;
+        }
+
+        .header::after {
+            content: '❧';
+            position: absolute;
+            bottom: -0.7em;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            color: var(--accent);
+            background: var(--bg);
+            padding: 0 1rem;
+            opacity: 0.7;
+        }
+
+        .header .collection {
+            font-family: 'Inter', sans-serif;
+            font-weight: 200;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            font-weight: 400;
+            font-size: 1.85rem;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+            line-height: 1.35;
+            margin-bottom: 0.3rem;
+        }
+
+        .header .subtitle {
+            font-weight: 300;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            letter-spacing: 0.03em;
+        }
+
+        /* ── Dateline ── */
+        .dateline {
+            text-align: right;
+            margin-bottom: 3rem;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+        }
+
+        .dateline .place {
+            color: var(--text);
+            font-style: normal;
+        }
+
+        /* ── Salutation ── */
+        .salutation {
+            font-size: 1.05rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        /* ── Letter body ── */
+        .letter-body {
+            position: relative;
+        }
+
+        .letter-body p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+        }
+
+        .letter-body p:first-of-type::first-letter {
+            float: left;
+            font-size: 3.4rem;
+            line-height: 0.75;
+            padding-right: 0.35rem;
+            padding-top: 0.12rem;
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        /* ── Section break ornament ── */
+        .section-break {
+            text-align: center;
+            margin: 2.5rem 0;
+            color: var(--accent);
+            font-size: 0.6rem;
+            letter-spacing: 0.5em;
+            opacity: 0.5;
+            user-select: none;
+        }
+
+        /* ── Blockquote / emphasis ── */
+        .letter-body .emphasis {
+            font-style: italic;
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        /* ── Closing ── */
+        .closing {
+            margin-top: 2.5rem;
+            text-align: right;
+            font-style: italic;
+            color: var(--text);
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--divider);
+            text-align: center;
+        }
+
+        .footer .credit {
+            font-family: 'Inter', sans-serif;
+            font-weight: 200;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .footer .credit span {
+            color: var(--accent);
+            font-weight: 300;
+        }
+
+        /* ── Subtle page number ── */
+        .page-marker {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            color: var(--text-muted);
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        /* ── Smooth theme transition on all themed elements ── */
+        .header::after,
+        .header .collection,
+        .header h1,
+        .header .subtitle,
+        .dateline,
+        .dateline .place,
+        .letter-body p,
+        .letter-body p:first-of-type::first-letter,
+        .letter-body .emphasis,
+        .section-break,
+        .closing,
+        .footer,
+        .footer .credit,
+        .footer .credit span,
+        .page-marker,
+        body::before {
+            transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* ── Theme Toggle ── */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--toggle-border);
+            background: var(--toggle-bg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.4s ease;
+            outline: none;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+            transform: scale(1.08);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.94);
+        }
+
+        /* ── Toggle icons ── */
+        .theme-toggle .icon {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Sun (shown in dark mode → switch to light) */
+        .theme-toggle .icon-sun {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        .theme-toggle .icon-sun::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            border: 1.5px solid var(--text-muted);
+            transition: border-color 0.4s ease;
+        }
+
+        .theme-toggle .icon-sun::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            margin: -2px 0 0 -2px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            transition: background-color 0.4s ease;
+        }
+
+        /* rays */
+        .theme-toggle .icon-sun .ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1px;
+            height: 5px;
+            background: var(--text-muted);
+            transition: background-color 0.4s ease;
+        }
+
+        .theme-toggle .icon-sun .ray:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translateY(-6px); }
+        .theme-toggle .icon-sun .ray:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg) translateY(-6px); }
+        .theme-toggle .icon-sun .ray:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg) translateY(-6px); }
+        .theme-toggle .icon-sun .ray:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg) translateY(-6px); }
+        .theme-toggle .icon-sun .ray:nth-child(5) { transform: translate(-50%, -50%) rotate(180deg) translateY(-6px); }
+        .theme-toggle .icon-sun .ray:nth-child(6) { transform: translate(-50%, -50%) rotate(225deg) translateY(-6px); }
+        .theme-toggle .icon-sun .ray:nth-child(7) { transform: translate(-50%, -50%) rotate(270deg) translateY(-6px); }
+        .theme-toggle .icon-sun .ray:nth-child(8) { transform: translate(-50%, -50%) rotate(315deg) translateY(-6px); }
+
+        /* Moon (shown in light mode → switch to dark) */
+        .theme-toggle .icon-moon {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.5);
+        }
+
+        .theme-toggle .icon-moon::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            border-radius: 50%;
+            border: 1.5px solid var(--text-muted);
+            transition: border-color 0.4s ease;
+            clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 40% 100%, 50% 50%);
+        }
+
+        /* ── Toggle state: light mode active → show moon ── */
+        [data-theme="light"] .theme-toggle .icon-sun {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.5);
+        }
+
+        [data-theme="light"] .theme-toggle .icon-moon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            body {
+                padding: 2rem 1rem;
+                font-size: 16px;
+            }
+            .container {
+                padding: 1.5rem 0 3rem;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .letter-body p:first-of-type::first-letter {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── Theme Toggle ── -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Farbschema umschalten" title="Hell / Dunkel">
+        <span class="icon icon-sun">
+            <span class="ray"></span><span class="ray"></span><span class="ray"></span><span class="ray"></span>
+            <span class="ray"></span><span class="ray"></span><span class="ray"></span><span class="ray"></span>
+        </span>
+        <span class="icon icon-moon"></span>
+    </button>
+
+    <div class="container">
+
+        <!-- ── Header ── -->
+        <header class="header">
+            <div class="collection">Briefe an einen jungen Dichter</div>
+            <h1>Achter Brief</h1>
+            <p class="subtitle">An Franz Xaver Kappus</p>
+        </header>
+
+        <!-- ── Dateline ── -->
+        <div class="dateline">
+            <span class="place">Borgeby gård, Flädie, Schweden</span><br>
+            am 12. August 1904
+        </div>
+
+        <!-- ── Letter ── -->
+        <article class="letter-body">
+
+            <p>
+                Sie erinnern sich, wie ich Ihnen einmal, damals in Paris, etwas Ähnliches von dem zu sagen versuchte, was wir »Schicksal« nennen. Ich möchte noch einmal von dem vielen, das ich Ihnen zu sagen wünschte, auf einiges Wenige kommen; und so will ich nur noch, lieber Herr Kappus, von zwei weiteren Dingen sagen: von der Traurigkeit und von den großen, immer neuen Bewegungen, die in uns vorgehen und die wir ebensowenig verstehen, wie wir uns selbst verstehen in dem, was wir sind und nicht sind.
+            </p>
+
+            <p>
+                Was die Traurigkeit betrifft: so werden Sie schon bemerkt haben, daß die großen Traurigkeiten, das sind diejenigen, von denen Sie meinen, sie seien über Sie gekommen, ohne Ihr besonderes Zutun, viel eher etwas Neues, eine neue Kenntnis in Ihnen bedeuten. Vielleicht ist vieles in Ihnen verwandelt worden, vielleicht haben Sie sich, während Sie traurig waren, an irgendeiner Stelle Ihres Wesens verändert, ohne es zu merken; und nur die Traurigkeit ist das einzige, was Ihnen von dieser leisen, heimlichen Veränderung zum Bewußtsein kommt. So wie man den Schritt eines Gastes nicht hört, der eben eingetreten ist, ebensowenig wie Sie den Schritt Ihrer eigenen Verwandlung vernehmen würden, wenn nicht die Traurigkeit wäre.
+            </p>
+
+            <p>
+                Es wäre sehr wichtig und beglückend für uns, wenn wir einmal dahin kommen könnten, einzusehen, daß wir unsere Traurigkeiten nicht verlieren, sondern daß sie in uns bleiben, ein Teil unseres Lebens werden, eine neue, wesentliche Eigenschaft unseres Daseins ausmachen, die nicht mehr fortzudenken ist. Ich weiß, Sie haben oft über Ihre Traurigkeiten nachgedacht; und Sie haben vielleicht auch schon bemerkt, daß das, was wir Schicksal nennen, nicht von außen in uns hinein, sondern aus uns hervorgeht. Und Sie haben es auch schon bemerkt, denke ich, wie wenig die äußeren Ereignisse vermögen, solange Sie noch nicht gewachsen sind, ihnen zu begegnen. Wir wollen nicht vergessen, daß das Schicksal niemals etwas anderes ist als die Summe aller unserer inneren Möglichkeiten, und daß jede äußere Begebenheit nur die Auslösung dessen ist, was wir schon immer waren.
+            </p>
+
+            <div class="section-break">✦</div>
+
+            <p>
+                Und nun noch das Zweite, wovon ich Ihnen sagen wollte: Es ist dieses: <span class="emphasis">Wir sind einsam.</span> Man kann sich darüber täuschen und tun, als wäre es nicht so. Das ist alles. Wie viel besser ist es aber, einzusehen, daß wir es sind, ja, geradezu davon auszugehen. Da wird es freilich geschehen, daß wir schwindlig werden; denn alle Punkte, auf die unser Auge sich zu stützen pflegte, werden uns fortgezogen, es gibt nichts Nahes mehr, und alles Ferne ist unendlich fern. Wer würde nicht, wenn er aus seinem Zimmer, fast ohne Vorbereitung und Übergang, auf die Höhe eines großen Gebirges gestellt würde, ähnliches fühlen: eine Unsicherheit ohnegleichen und ein Ausgeliefertsein an Unnennbares, das ihn fast vernichten möchte.
+            </p>
+
+            <p>
+                Aber auch das ist nur ein vorläufiges Erlebnis. Die meisten Empfindungen sind Übergänge. Und nachdem das erste Staunen überwunden ist, wird die Einsamkeit sich als eine Gegebenheit erweisen, fast als die Grundbedingung unseres Lebens; sie wird sich als eine neue, kaum zu ermessende Weite auftun, in der wir uns bewegen können; und was uns vorher als ein Gefühl der Verlassenheit erschien, wird sich verwandeln in eine stille, gesammelte, sichere Freude.
+            </p>
+
+            <p>
+                Alles, was uns geschieht, wirft uns etwas zu, was wir noch nicht sind; aber es ist etwas, das zu uns gehört. Es ist kein Zweifel, daß wir Schweres erleben werden; denn das Leben ist schwer zu ertragen, und es ist immer von neuem eine Aufgabe, das Schwere zu bestehen. Aber vielleicht sind es gerade die schweren Dinge, die uns am meisten lieben; es sind die Dinge, die uns am nächsten angehen, die uns am tiefsten in das Geheimnis unseres eigenen Wesens hineinführen.
+            </p>
+
+            <p>
+                <span class="emphasis">Vielleicht sind alle Drachen unseres Lebens Prinzessinnen, die nur darauf warten, uns einmal schön und mutig zu sehen. Vielleicht ist alles Schreckliche im Grunde nur das Hilflose, das von uns Hilfe will.</span>
+            </p>
+
+            <div class="section-break">✦</div>
+
+            <p>
+                Sie dürfen nicht erschrecken, wenn eine Traurigkeit vor Ihnen aufsteht, so groß wie Sie noch keine gesehen haben; wenn eine Unruhe wie Licht und Wolkenschatten über Ihre Hände und über all Ihr Tun geht. Sie müssen daran denken, daß etwas in Ihnen geschieht, daß das Leben Sie nicht vergessen hat, daß es Sie in seiner Hand hält; es wird Sie nicht fallen lassen. Warum wollen Sie irgendeine Beunruhigung, irgendein Bangen, irgendeine Schwermut Ihres Lebens von sich ausschließen? Sie wissen ja nicht, was diese Zustände an Ihnen arbeiten.
+            </p>
+
+            <p>
+                Es ist so wichtig, einsam zu sein. Denn die Stunde der Einsamkeit ist die Stunde der Sammlung; und wir gehen aus ihr hervor als die, die wir nicht waren. Alles ist dann einfach und klar, und auch das Schwierigste wird einfach, weil wir nicht mehr Widerstand leisten, sondern weil wir es annehmen.
+            </p>
+
+            <p>
+                Und so bitte ich Sie, Geduld zu haben gegen alles Ungelöste in Ihrem Herzen, und zu versuchen, die Fragen selbst lieb zu haben wie verschlossene Stuben und wie Bücher, die in einer sehr fremden Sprache geschrieben sind. Forschen Sie jetzt nicht nach den Antworten, die Ihnen nicht gegeben werden können, weil Sie sie nicht leben könnten. Und es handelt sich darum, alles zu leben. <span class="emphasis">Leben Sie jetzt die Fragen. Vielleicht leben Sie dann allmählich, ohne es zu merken, eines fernen Tages in die Antwort hinein.</span>
+            </p>
+
+        </article>
+
+        <!-- ── Closing ── -->
+        <div class="closing">
+            Ihr<br>
+            Rainer Maria Rilke
+        </div>
+
+        <!-- ── Footer ── -->
+        <footer class="footer">
+            <p class="credit">Created by <span>Happy-Yuki</span></p>
+        </footer>
+
+    </div>
+
+    <div class="page-marker">VIII</div>
+
+    <script>
+        (function() {
+            const html = document.documentElement;
+            const toggle = document.getElementById('themeToggle');
+
+            // ── Restore saved preference, or default to dark ──
+            const saved = localStorage.getItem('rilke-theme');
+            if (saved === 'light') {
+                html.setAttribute('data-theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+            }
+
+            // ── Toggle on click ──
+            toggle.addEventListener('click', function() {
+                const current = html.getAttribute('data-theme');
+                const next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('rilke-theme', next);
+            });
+        })();
+    </script>
+
+</body>
+</html>
